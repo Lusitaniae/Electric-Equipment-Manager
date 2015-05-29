@@ -50,29 +50,31 @@ typedef struct equipamento {
 
 iniciar_fila(int fila[])
 {
-      int i;
-      for(i=1;i<=MAX_EQ_LIG;i++) fila[i]=0;
+    int i;
+    for(i = 1; i <= MAX_EQ_LIG; i++) 
+        fila[i]=0;
 }
 
 mostrar_fila(int fila[])
 {
-      int i;
-      for(i=1;i<=MAX_EQ_LIG;i++) printf("%3d", fila[i]);
+    int i;
+    for(i = 1; i <= MAX_EQ_LIG; i++) 
+        printf("%3d", fila[i] );
 }
 
 int valida_n(int fila[], int n) //se existe no vector 
 {
     int i;
-    for(i=1;i<=MAX_EQ_LIG;i++)
-       if(fila[i]==n)   
+    for(i = 1; i <= MAX_EQ_LIG; i++)
+       if( fila[i] == n )   
           return 1;
         return 0;
 }
 int valida_dsp(int fila[], int n) //se existe nos dsp . must kill . one function must suffice
 {
     int i;
-    for(i=1;i<=MAX_EQ_DSP;i++)
-        if(fila[i]==n)
+    for(i = 1; i <= MAX_EQ_DSP; i++)
+        if( fila[i] == n )
             return 1;
         return 0;
 }
@@ -87,11 +89,12 @@ int valida_ps(int f_equipamento_uso[], int ps) //se pos vazia
 psVazias(int f_equipamento_uso[], int ps)
 {
     int i;
-    for(i=0;i<ps;i++)
+    for(i = 0; i < ps; i++)
         if(f_equipamento_uso[i] == 0){
             printf("Nao pode inserir equipamento deixando posicoes anteriores em branco.");
             getch();
-            return 1;}  
+            return 1;
+        }  
         return 0;
 }
 agrupado(int f_equipamento_uso[], int f_categoria[], int n, int pr, int ps)
@@ -99,21 +102,21 @@ agrupado(int f_equipamento_uso[], int f_categoria[], int n, int pr, int ps)
     if(f_categoria[ps] == f_categoria[ps-1]){
         return 0;
     
-        }
+    }
     return 1;
 }
 
 inserir(int f_equipamento_uso[], int f_categoria[], int n, int pr, int ps)
 {
     // negar categorias su+periores depois das inferiores ( ordem crescente)      
-    int i,j, temp_u,temp_pr,efi,zeros=0;
-    for(i=MAX_EQ_LIG;i>ps;i--)
-       {
-            f_equipamento_uso[i]=f_equipamento_uso[i-1];
-            f_categoria[i]      =f_categoria[i-1];
-       }
-       f_equipamento_uso[ps]=n;
-       f_categoria[ps]=pr;
+    int i, j, temp_u, temp_pr, efi, zeros=0;
+
+    for(i = MAX_EQ_LIG; i > ps; i--){
+        f_equipamento_uso[i] = f_equipamento_uso[i-1];
+        f_categoria[i] = f_categoria[i-1];
+    }
+    f_equipamento_uso[ps] = n;
+    f_categoria[ps] = pr;
        
        /*
     if(f_equipamento_uso[ps]==0)                    //se ps vazia
@@ -134,11 +137,11 @@ inserirEqDISP(int n, int cat, Equipamento eq[]) //inserir na estrutura do Equipa
 {
     int potencia;
     char nome[40];
-    eq[n].codDipositivo=n;
-    eq[n].categoria=cat;
+    eq[n].codDipositivo = n;
+    eq[n].categoria = cat;
     //validate inputs
     printf("\nNome do Equipamento: ");  getchar();fgets(nome, 40, stdin);   strtok(nome, "\n"); strcpy(eq[n].nomeEquipamento, nome);
-    printf("\nPotencia do Equipamento: ");  scanf("%i",&potencia);  eq[n].potencia=potencia;
+    printf("\nPotencia do Equipamento: ");  scanf("%i",&potencia);  eq[n].potencia = potencia;
     //getchar is used instead of fflush for OS portability. to prevent errors from \n
     
 }
@@ -151,13 +154,13 @@ registarHora(int n, int  x, Equipamento eq[], Data data[])
         lt = time(NULL);
         ptr = localtime(&lt);
     
-    if(x==0){ //0:desligar      1:ligar
+    if(x == 0){ //0:desligar      1:ligar
         eq[n].desligado[n].ano = (ptr->tm_year+1900);
         eq[n].desligado[n].dia = (ptr->tm_mday);    //printf("%i", (ptr->tm_mday));
         eq[n].desligado[n].hora = (ptr->tm_hour);   //printf("%i", (ptr->tm_hour));
         eq[n].desligado[n].min = (ptr->tm_min);     //printf("%i", (ptr->tm_min)); getch();
          
-            mktime(localtime(&ptr)); //define meses como strings 
+        mktime(localtime(&ptr)); //define meses como strings 
         strcpy(eq[n].ligado[n].mes, mes[ptr->tm_mon-1]); 
                  
     }else{
@@ -174,15 +177,15 @@ registarHora(int n, int  x, Equipamento eq[], Data data[])
            
 retirar(int n, int x[], int y[]) //retirar elemento n de x e y
 {
-         int i;
-         for(i=0;i<20;i++)
-                if(x[i] == n)
-                {
-                           x[i]=0;  //eq_uso=0
-                           y[i]=0;  //categ=0
-                           return 1;  
-                 }
-         return 0;     
+        int i;
+        for(i = 0; i < 20; i++)
+            if(x[i] == n)
+            {
+                x[i]=0;  //eq_uso=0
+                y[i]=0;  //categ=0
+                return 1;  
+            }
+        return 0;     
                            
 }
 removerDSP(int n, Equipamento eq[])
@@ -205,37 +208,36 @@ removerDSP(int n, Equipamento eq[])
 unblanker(int n, int x[], int y[]) //remover espaços em branco ao remover elementos
 {
     int j;
-    for(j=0;j<=20;j++)
-        if(x[j++] != 0 && x[j] == 0)
-            {
+    for(j = 0; j <= 20; j++)
+        if(x[j++] != 0 && x[j] == 0){
             x[j] = x[j+1]; x[j+1] = 0;
             y[j] = y[j+1]; y[j+1] = 0;              
-            }
+        }
 }
 
 ordenar(int n, int vec[])
 {
     int troca, i, j;
     float aux;
-    for(i=n-1; i>0; i--) {
+    for(i = n-1; i > 0; i--) {
         troca = 0;
-            for (j=0 ; j<i; j++) {
-                //Alterar <> para crescente/decrescente
-                if (vec[j] < vec[j+1]) {
-                    aux = vec[j];   vec[j] = vec[j+1];      vec[j+1] = aux;
-                    troca = 1;
-                    }
+        for (j = 0; j < i; j++) {
+            //Alterar <> para crescente/decrescente
+            if (vec[j] < vec[j+1]) {
+                aux = vec[j];   vec[j] = vec[j+1];      vec[j+1] = aux;
+                troca = 1;
             }
-            if (!troca) return;
+        }
+        if (!troca) return;
     }
 }                         
  
 mostrar(int cat, Equipamento eq[],int f[])
 {
-    int i,equipCat=0;
+    int i, equipCat = 0;
     char status[11];
 
-    for(i=0;i<MAX_EQ_DSP;i++)
+    for(i = 0; i < MAX_EQ_DSP; i++)
         if(eq[i].categoria == cat)
             equipCat++;
             
@@ -244,14 +246,14 @@ mostrar(int cat, Equipamento eq[],int f[])
     else{    
         int lista[equipCat];               
         
-        for(i=0;i<MAX_EQ_DSP;i++)
+        for(i = 0; i < MAX_EQ_DSP; i++)
             if(eq[i].categoria == cat)
                 lista[i]=eq[i].codDipositivo;                                                                  
         
         //ordenar(equipCat, lista);
         printf("    Equipamento Disponivel em %i:", cat);
         printf("\nNr Cod  Nome  Potencia      Estado"   );
-        for(i=1;i<=equipCat;i++){
+        for(i = 1; i <= equipCat; i++){
             if(valida_n(f, eq[i].codDipositivo)) //valida_n so verifica ate 20
                 strcpy(status,"LIGADO");     
             else 
@@ -268,31 +270,32 @@ mostrar(int cat, Equipamento eq[],int f[])
 
 int somaConsumo(Equipamento eq[], int f_equipamento_uso[]) //more useless unworkable arsehit
 {
-    int i,j=0,soma=0,equipCat=0;
+    int i,j = 0,soma = 0,equipCat = 0;
     //char status[11];
-    int lista[20]={};
+    int lista[20] = {};
 
-    for(i=0;i<MAX_EQ_LIG;i++)
+    for(i = 0; i < MAX_EQ_LIG; i++)
         if(f_equipamento_uso[i] != 0){
             //for(j=0;j<MAX_EQ_DSP;j++)
-            lista[j]=eq[i].potencia;
+            lista[j] = eq[i].potencia;
             j++;
         }
             
-    for(j=0;j<20;j++)
-        soma+=lista[j];
+    for(j = 0; j < 20; j++)
+        soma += lista[j];
+    
     return(soma);
 }
 potenciaSug(int consumo)
 {
     char sug[19];
-    if(consumo<1150)
+    if(consumo < 1150)
         strcpy(sug, "minimo 1.15!");
     if(consumo >= 1150 && consumo <= 20700)
         strcpy(sug, "20.7");
-    if(consumo > 20700 && consumo <=41400)
+    if(consumo > 20700 && consumo <= 41400)
         strcpy(sug, "41.4");
-    if(consumo>41400)
+    if(consumo > 41400)
         strcpy(sug, "superior a 41.4");
     return(sug);
 }
@@ -304,14 +307,14 @@ main()
       int f_categoria[MAX_EQ_LIG], f_equipamento_uso[MAX_EQ_LIG];
       int n, pr, ps, res_n, res_ps;
       int nr,sn;
-      int tconsumo=0, spotencia=0;
+      int tconsumo = 0, spotencia = 0;
       
       //int f_equipamento_dsp[MAX_EQ_DSP];
       Equipamento equipamento[MAX_EQ_DSP];
       Data data[MAX_EQ_DSP];
       int consumo=somaConsumo(equipamento, f_equipamento_uso);
       char sugestao[60];
-        strcpy(sugestao,potenciaSug(consumo));
+        strcpy(sugestao, potenciaSug(consumo));
       //char categorias[][3]={"AA", "A+", "B"};
 
       system("title SiPEc - Simulador de Potencia Eletrica");
