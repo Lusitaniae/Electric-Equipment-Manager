@@ -92,7 +92,7 @@ psVazias(int f_equipamento_uso[], int ps)
     for(i = 0; i < ps; i++)
         if(f_equipamento_uso[i] == 0){
             printf("Nao pode inserir equipamento deixando posicoes anteriores em branco.");
-            getch();
+            getchar();
             return 1;
         }  
         return 0;
@@ -158,7 +158,7 @@ registarHora(int n, int  x, Equipamento eq[], Data data[])
         eq[n].desligado[n].ano = (ptr->tm_year+1900);
         eq[n].desligado[n].dia = (ptr->tm_mday);    //printf("%i", (ptr->tm_mday));
         eq[n].desligado[n].hora = (ptr->tm_hour);   //printf("%i", (ptr->tm_hour));
-        eq[n].desligado[n].min = (ptr->tm_min);     //printf("%i", (ptr->tm_min)); getch();
+        eq[n].desligado[n].min = (ptr->tm_min);     //printf("%i", (ptr->tm_min)); getchar();
          
         mktime(localtime(&ptr)); //define meses como strings 
         strcpy(eq[n].ligado[n].mes, mes[ptr->tm_mon-1]); 
@@ -167,7 +167,7 @@ registarHora(int n, int  x, Equipamento eq[], Data data[])
         eq[n].ligado[n].ano = (ptr->tm_year+1900);
         eq[n].ligado[n].dia = (ptr->tm_mday);   //printf("%i", (ptr->tm_mday));
         eq[n].ligado[n].hora = (ptr->tm_hour);  //printf("%i", (ptr->tm_hour));
-        eq[n].ligado[n].min = (ptr->tm_min);    //printf("%i", (ptr->tm_min)); getch();
+        eq[n].ligado[n].min = (ptr->tm_min);    //printf("%i", (ptr->tm_min)); getchar();
          
         mktime(localtime(&ptr)); //define meses como strings 
         strcpy(eq[n].ligado[n].mes, mes[ptr->tm_mon-1]);   
@@ -197,7 +197,7 @@ removerDSP(int n, Equipamento eq[])
     eq[n].ligado[n].ano =0;
     eq[n].ligado[n].dia =0;     //printf("%i", (ptr->tm_mday));
     eq[n].ligado[n].hora = 0;   //printf("%i", (ptr->tm_hour));
-    eq[n].ligado[n].min = 0;    //printf("%i", (ptr->tm_min)); getch();
+    eq[n].ligado[n].min = 0;    //printf("%i", (ptr->tm_min)); getchar();
     strcpy(eq[n].ligado[n].mes, ""); 
     eq[n].desligado[n].ano =0;
     eq[n].desligado[n].dia =0;  
@@ -264,7 +264,7 @@ mostrar(int cat, Equipamento eq[],int f[])
             
         }
     }   
-    getch();        
+    getchar();        
          
 }
 
@@ -374,10 +374,10 @@ main()
                             registarHora(f_equipamento_uso[20], 0, equipamento, data); //is it working? not
                             printf("Fila Cheia. O equipamento na posicao 20 vai ser desligado.");
                             printf("%i", equipamento[1].desligado[1].dia); //equipamento de f_eq_uso, necessario descobrir id do struct equipamento
-                            getch();
+                            getchar();
                         }else{
                             printf("Apenas pode ligar equipamento mais eficiente que o da posicao 20."); 
-                            getch();
+                            getchar();
                             }
                       }else{
                         
@@ -409,14 +409,14 @@ main()
                             //Imprimir Eq Disponiveis para verificar função abaixo
                             printf("\nRemover dos Equipamentos Disponiveis? 1:Sim | 2:Nao ");
                             scanf("%i", &sn);
-                            //getch();
+                            //getchar();
                             if(sn == 1){
                                     removerDSP(nr, equipamento);  
                             }else{ }
                             
                     }else{
                             printf("Equipamento nao existe.");
-                            getch();       
+                            getchar();       
                     }                   
                             
                     break;
@@ -435,9 +435,9 @@ main()
                      break; //useless                
                 default:
                      printf("\nERRO - Opcao invalida!");
-                     getch();
+                     getchar();
                      //break;
           }
       }while(op!='0');
-      getch();
+      getchar();
 }
